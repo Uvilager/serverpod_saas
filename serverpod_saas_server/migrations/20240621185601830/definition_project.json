@@ -1,0 +1,19 @@
+{
+  "moduleName": "serverpod_saas",
+  "tables": [],
+  "installedModules": [
+    {
+      "module": "serverpod",
+      "version": "20240516151843329"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240520102713718"
+    },
+    {
+      "module": "serverpod_saas",
+      "version": "20240621183143413"
+    }
+  ],
+  "migrationApiVersion": 1
+}

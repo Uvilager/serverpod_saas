@@ -1,6 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 
 import 'package:serverpod_saas_server/src/web/routes/root.dart';
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
 
 import 'src/generated/protocol.dart';
 import 'src/generated/endpoints.dart';
@@ -15,7 +16,19 @@ void run(List<String> args) async {
     args,
     Protocol(),
     Endpoints(),
+    authenticationHandler: auth.authenticationHandler,
   );
+  auth.AuthConfig.set(auth.AuthConfig(
+    sendValidationEmail: (session, email, validationCode) async {
+      print(validationCode);
+      return true;
+    },
+    sendPasswordResetEmail: (session, userInfo, validationCode) async {
+      print(validationCode);
+      return true;
+    },
+    minPasswordLength: 3,
+  ));
 
   // If you are using any future calls, they need to be registered here.
   // pod.registerFutureCall(ExampleFutureCall(), 'exampleFutureCall');
