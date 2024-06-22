@@ -38,9 +38,15 @@ class MyApp extends StatelessWidget {
                   onPressed: () {
                     print('button clicked');
                     // ref.read(authServiceProvider).register(
-                    //     userName: '123', email: '123@123.com', password: '123');
+                    //     userName: '1234',
+                    //     email: '1234@1234.com',
+                    //     password: '1234');
                     // ref.read(authServiceProvider).confirmUserRegister(
-                    //     email: '123@123.com', verificationCode: 'InpxDMeh');
+                    //     email: '1234@1234.com', verificationCode: 'XnXT2I6E');
+                    final userInfo = ref
+                        .read(authServiceProvider)
+                        .login(email: '1234@1234.com', password: '1234');
+                    print('user info: $userInfo');
                   },
                   child: const Text('Test Register'),
                 )

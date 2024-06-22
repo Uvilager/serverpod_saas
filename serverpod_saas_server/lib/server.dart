@@ -27,6 +27,15 @@ void run(List<String> args) async {
       print(validationCode);
       return true;
     },
+    onUserCreated: (session, userInfo) async {
+      if (userInfo.id == null) {
+        print("userInfo.id is null");
+        return;
+      }
+      final user = User(userInfoId: userInfo.id!, bio: "");
+      await User.db.insertRow(session, user);
+      print("user created");
+    },
     minPasswordLength: 3,
   ));
 

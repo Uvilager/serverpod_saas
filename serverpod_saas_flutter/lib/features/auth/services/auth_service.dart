@@ -8,6 +8,33 @@ class AuthService {
   final Client client;
   AuthService({required this.client, required this.sessionManager});
 
+  Future<Either<String, UserInfo>> login(
+      {required String email, required String password}) async {
+    try {
+      final res = await client.modules.auth.email.authenticate(email, password);
+      if (!res.success) {
+        return const Left('Failed to login');
+      }
+      if (res.userInfo == null) {
+        return const Left('User info null');
+      }
+
+      if (res.keyId == null) {
+        return const Left('Key id null');
+      }
+
+      if (res.key == null) {
+        return const Left('Key null');
+      }
+      print(res.userInfo);
+      sessionManager.registerSignedInUser(res.userInfo!, res.keyId!, res.key!);
+      return Right(res.userInfo!);
+    } catch (e) {
+      print(e);
+      return Left(e.toString());
+    }
+  }
+
   Future<Either<String, void>> register(
       {required String userName,
       required String email,
