@@ -68,4 +68,17 @@ class AuthService {
       return Left(e.toString());
     }
   }
+
+  Future<Either<String, void>> logout() async {
+    try {
+      final res = await sessionManager.signOut();
+      if (!res) {
+        return const Left('Failed to logout');
+      }
+      return const Right(null);
+    } catch (e) {
+      print(e);
+      return Left(e.toString());
+    }
+  }
 }
